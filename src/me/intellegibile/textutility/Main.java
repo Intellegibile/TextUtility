@@ -18,8 +18,10 @@ public class Main {
             case "print":
                 if (args.length == 2) {
                     try {
-                        Operation printOperation = new PrintOperation(new FileInputStream(args[1]), null);
-                        printOperation.operate();
+                        if (args[1].endsWith(".txt")) {
+                            Operation printOperation = new PrintOperation(new FileInputStream(args[1]), null);
+                            printOperation.operate();
+                        }
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
