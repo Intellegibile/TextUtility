@@ -11,6 +11,6 @@ public class PrintOperation extends Operation{
     }
 
     public void operate() {
-        System.out.println(new String(this.characters, StandardCharsets.UTF_8));
+        System.out.println(new String(this.charactersInput, StandardCharsets.UTF_8));
     }
 }
