@@ -34,6 +34,10 @@ public abstract class Operation {
         this.startCharacterMedium();
     }
 
+    public StringReader getStringReader() {
+        return this.stringReader;
+    }
+
     public abstract void operate();
 
     public void outputFile() {
