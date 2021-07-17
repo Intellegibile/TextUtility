@@ -16,6 +16,6 @@ public class DeleteOperation extends Operation{
 
     @Override
     public void operate() {
-        
+
     }
 }
