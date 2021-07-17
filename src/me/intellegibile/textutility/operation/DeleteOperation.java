@@ -13,27 +13,8 @@ public class DeleteOperation extends Operation{
         }
     }
 
-    public void delete() {
-        while (this.isRunning()) {
-            this.word(this.start);
-            if (this.wordArray.equals(this.first)) {
-                for (int l = this.startWord; l < this.finishWord; l++) {
-                    this.charactersMedium.set(l, null);
-                }
-            }
-            this.updateStart();
-            this.clearWordArray();
-        }
-    }
-
     @Override
     public void operate() {
-       this.delete();
-       this.mediumToOutput();
-       StringBuilder stringBuilder = new StringBuilder();
-       for (int i = 0; i < this.charactersOutput.length; i++) {
-           stringBuilder.append((char)this.charactersOutput[i]);
-       }
-       this.outputFile();
+
     }
 }
