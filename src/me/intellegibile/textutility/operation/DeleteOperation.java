@@ -3,23 +3,16 @@ package me.intellegibile.textutility.operation;
 import me.intellegibile.textutility.file.InputFile;
 import me.intellegibile.textutility.file.OutputFile;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteOperation extends Operation{
-    private ArrayList<Character> first = new ArrayList<Character>();
+    private final String word;
 
-    public DeleteOperation(String first_, InputFile inputFile, OutputFile outputFile) {
-        super(inputFile, outputFile);
-        for (char c : first_.toCharArray()) {
-            first.add(c);
-        }
-    }
-
-    public void deleteAllSpaces() {
-        this.getStringReader().spacePositions();
-        List<Integer> spacePosition = this.getStringReader().getSpacePositions();
-        System.out.println(spacePosition);
+    public DeleteOperation(String word, InputFile inputFile, OutputFile outputFile) {
+       super(inputFile, outputFile);
+       this.word = word;
     }
 
     @Override
