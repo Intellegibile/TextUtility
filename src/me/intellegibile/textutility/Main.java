@@ -1,5 +1,7 @@
 package me.intellegibile.textutility;
 
+import me.intellegibile.textutility.file.InputFile;
+import me.intellegibile.textutility.file.OutputFile;
 import me.intellegibile.textutility.operation.Operation;
 import me.intellegibile.textutility.operation.PrintOperation;
 import me.intellegibile.textutility.operation.DeleteOperation;
@@ -40,7 +42,7 @@ public class Main {
                 if (args.length == 2) {
                     try {
                         if (args[1].endsWith(".txt")) {
-                            PrintOperation printOperation = new PrintOperation(new FileInputStream(args[1]), null);
+                            PrintOperation printOperation = new PrintOperation(new InputFile(new FileInputStream(args[1])), null);
                             printOperation.operate();
                         }
                     } catch (FileNotFoundException e) {
@@ -59,7 +61,7 @@ public class Main {
                 if (args.length == 4) {
                     try  {
                         if (args[2].endsWith(".txt") && args[3].endsWith(".txt")) {
-                            DeleteOperation deleteOperation = new DeleteOperation(args[1], new FileInputStream(args[2]), new FileOutputStream(args[3]));
+                            DeleteOperation deleteOperation = new DeleteOperation(args[1], new InputFile(new FileInputStream(args[2])), new OutputFile(new FileOutputStream(args[3])));
                             deleteOperation.operate();
                         } else {
                             throw  new IllegalArgumentException("You need to define the path of the file input and output");
@@ -71,7 +73,7 @@ public class Main {
                     if (isReady()) {
                         try {
                             if (args[2].endsWith(".txt")) {
-                                DeleteOperation deleteOperation = new DeleteOperation(args[1], new FileInputStream(args[2]), new FileOutputStream(args[2]));
+                                DeleteOperation deleteOperation = new DeleteOperation(args[1], new InputFile(new FileInputStream(args[2])), new OutputFile(new FileOutputStream(args[2])));
                                 deleteOperation.operate();
                             } else {
                                 throw new IllegalArgumentException("You need to define the path of the file input");
@@ -87,5 +89,4 @@ public class Main {
                 }
         }
     }
-
 }

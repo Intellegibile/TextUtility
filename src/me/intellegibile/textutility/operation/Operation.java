@@ -15,6 +15,10 @@ public abstract class Operation {
         this.stringReader = new StringReader(inputFile.toCharArray().toString());
     }
 
+    public StringReader getStringReader() {
+        return this.stringReader;
+    }
+
     public abstract void operate();
 
 
