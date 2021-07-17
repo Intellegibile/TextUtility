@@ -6,6 +6,7 @@ public class StringReader {
     private final String string;
     private int cursor;
     private List<String> words = new ArrayList<String>();
+    private List<Integer> spacePositions = new ArrayList<Integer>();
 
     public StringReader(String s, int c) {
         this.string = s;
@@ -47,6 +48,14 @@ public class StringReader {
         }
     }
 
+    public boolean isEnd(int minus) {
+       return this.cursor == this.string.length() - minus;
+    }
+
+    public boolean isEnd() {
+        return this.isEnd(0);
+    }
+
     public void readWordsBetweenSpaces() {
         List<Character> characters = new ArrayList<Character>();
         while((this.canRead() || this.cursor == this.string.length() - 1) && !this.isWhiteSpace()) {
@@ -67,6 +76,25 @@ public class StringReader {
                 }
             }
         }
+    }
+
+    public void spacePositions() {
+        while((this.canRead() || this.isEnd(1)) && this.isWhiteSpace()) {
+            this.spacePositions.add(this.cursor);
+            this.skip();
+        }
+        if((this.canRead() || this.isEnd(1)) && !this.isWhiteSpace()) {
+            while ((this.canRead() || this.isEnd(1)) && !this.isWhiteSpace()) {
+                this.skip();
+            }
+            if((this.canRead() || this.isEnd(1)) && this.isWhiteSpace()) {
+                this.spacePositions();
+            }
+        }
+    }
+
+    public List<Integer> getSpacePositions() {
+        return this.spacePositions;
     }
 
     public List<String> getWordsBetweenSpaces() {
