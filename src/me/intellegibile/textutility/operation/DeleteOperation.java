@@ -3,7 +3,6 @@ package me.intellegibile.textutility.operation;
 import me.intellegibile.textutility.file.InputFile;
 import me.intellegibile.textutility.file.OutputFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteOperation extends Operation{
