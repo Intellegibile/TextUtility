@@ -1,11 +1,11 @@
 package me.intellegibile.textutility.file;
 
-import java.io.FileOutputStream;
+import java.nio.file.Path;
 
 public class OutputFile {
-    private final FileOutputStream fileOutputStream;
+    private final Path path;
 
-    public OutputFile(FileOutputStream outputStream) {
-        this.fileOutputStream = outputStream;
+    public OutputFile(Path path) {
+        this.path = path;
     }
 }
