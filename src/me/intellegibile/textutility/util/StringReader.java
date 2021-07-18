@@ -57,18 +57,18 @@ public class StringReader {
 
     public void readWordsBetweenSpaces() {
         List<Character> characters = new ArrayList<Character>();
-        while((this.canRead() || this.cursor == this.string.length() - 1) && !this.isWhiteSpace()) {
+        while((this.canRead() || this.isEnd(1)) && !this.isWhiteSpace()) {
                 char r = this.read();
                 characters.add(r);
                 skip();
         }
-        if (this.cursor == this.string.length() || this.isWhiteSpace()) {
+        if (this.isEnd() || this.isWhiteSpace()) {
             StringBuilder stringBuilder = new StringBuilder();
             characters.forEach(character -> stringBuilder.append(character));
             this.words.add(stringBuilder.toString());
             characters.clear();
             stringBuilder.delete(0, stringBuilder.toString().length());
-            if (!(this.cursor == this.string.length())) {
+            if (!(this.isEnd())) {
                 this.skipWhiteSpace();
                 if (this.canRead()) {
                     this.readWordsBetweenSpaces();
