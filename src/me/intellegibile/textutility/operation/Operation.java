@@ -36,5 +36,16 @@ public abstract class Operation {
         this.outputString = stringBuilder.toString();
     }
 
+    public void setOutputString(List<String> strings) {
+        StringBuilder stringBuilder = new StringBuilder();
+        strings.stream().filter(s -> !(strings.indexOf(s) == strings.size() - 1)).forEach(s -> stringBuilder.append(s + " "));
+        strings.stream().filter(s -> strings.indexOf(s) == strings.size() - 1).forEach(s -> stringBuilder.append(s));
+        this.outputString = stringBuilder.toString();
+    }
+
     public abstract void operate();
+
+    public void sendOutput() {
+        this.output.initializeOutput(this.outputString);
+    }
 }
