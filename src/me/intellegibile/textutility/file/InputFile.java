@@ -25,4 +25,12 @@ public class InputFile {
 
         return content;
     }
+
+    public List<Character> getInputListCharacter() {
+        List<Character> inputListCharacters = new ArrayList<>();
+        for (int i = 0; i < this.toString().toCharArray().length; i++) {
+            inputListCharacters.add(this.toString().toCharArray()[i]);
+        }
+        return inputListCharacters;
+    }
 }

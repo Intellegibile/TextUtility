@@ -4,6 +4,7 @@ import me.intellegibile.textutility.file.InputFile;
 import me.intellegibile.textutility.file.OutputFile;
 import me.intellegibile.textutility.util.StringReader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Operation {
@@ -12,6 +13,7 @@ public abstract class Operation {
     private final StringReader stringReader;
     private final String string;
     private String outputString;
+    protected List<Character> characterOutput = new ArrayList<>();
 
     public Operation(InputFile inputFile, OutputFile outputFile) {
         this.input = inputFile;
@@ -28,9 +30,9 @@ public abstract class Operation {
         return this.getString();
     }
 
-    public void setOutputString(List<Character> outputCharacters) {
+    public void setOutputString() {
         StringBuilder stringBuilder = new StringBuilder();
-        outputCharacters.stream().forEach(character -> stringBuilder.append(character));
+        this.characterOutput.stream().forEach(character -> stringBuilder.append(character));
         this.outputString = stringBuilder.toString();
     }
 
