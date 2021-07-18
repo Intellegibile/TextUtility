@@ -20,11 +20,12 @@ public class DeleteOperation extends Operation{
     public void deleteWords() {
         List<String> wordsToDelete = this.getStringReader().getWordsBetweenSpaces();
        wordsToDelete = wordsToDelete.stream().filter(s -> !s.equals(this.word)).toList();
+       this.setOutputString(wordsToDelete);
     }
 
     @Override
     public void operate() {
         this.deleteWords();
-        this.setOutputString();
+        this.sendOutput();
     }
 }
