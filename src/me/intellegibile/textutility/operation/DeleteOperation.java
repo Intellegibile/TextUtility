@@ -8,25 +8,24 @@ import java.util.List;
 
 public class DeleteOperation extends Operation{
     private final String word;
-    private final char[] chars;
-    private List<Character> characterList = new ArrayList<Character>();
 
     public DeleteOperation(String word, InputFile inputFile, OutputFile outputFile) {
        super(inputFile, outputFile);
        this.word = word;
-       this.chars = inputFile.toString().toCharArray();
-       for (int i = 0; i < this.chars.length; i++) {
-           this.characterList.add(this.chars[i]);
-       }
     }
 
     public void deleteAllSpaces() {
-        this.characterList = this.characterList.stream().filter(character -> !Character.isWhitespace(character.charValue())).toList();
+        this.characterOutput = this.characterOutput.stream().filter(character -> !Character.isWhitespace(character.charValue())).toList();
+    }
+
+    public void deleteWords() {
+        List<String> wordsToDelete = this.getStringReader().getWordsBetweenSpaces();
+       wordsToDelete = wordsToDelete.stream().filter(s -> !s.equals(this.word)).toList();
     }
 
     @Override
     public void operate() {
-        this.deleteAllSpaces();
-        this.setOutputString(this.characterList);
+        this.deleteWords();
+        this.setOutputString();
     }
 }
