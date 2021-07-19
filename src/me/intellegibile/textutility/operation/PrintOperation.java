@@ -11,6 +11,6 @@ public class PrintOperation extends Operation{
     }
 
     public void operate(Pattern pattern) {
-
+        System.out.println(this.input.toString());
     }
 }

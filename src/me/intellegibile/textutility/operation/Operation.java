@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Operation {
-    private final InputFile input;
-    private final OutputFile output;
+    protected final InputFile input;
+    protected final OutputFile output;
     private final StringReader stringReader;
     private final String string;
     private String outputString;

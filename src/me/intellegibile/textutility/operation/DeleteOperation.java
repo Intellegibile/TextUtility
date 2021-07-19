@@ -1,10 +1,10 @@
 package me.intellegibile.textutility.operation;
 
+import me.intellegibile.textutility.Pattern.DeletePattern;
 import me.intellegibile.textutility.Pattern.Pattern;
 import me.intellegibile.textutility.file.InputFile;
 import me.intellegibile.textutility.file.OutputFile;
 
-import java.nio.file.Path;
 import java.util.List;
 
 public class DeleteOperation extends Operation{
@@ -27,7 +27,13 @@ public class DeleteOperation extends Operation{
 
     @Override
     public void operate(Pattern pattern) {
-        this.deleteWords();
+        if (pattern == DeletePattern.DELETE_ALL_SPACES) {
+            this.deleteAllSpaces();
+        } else if (pattern == DeletePattern.DELETE_SPECIFIC_WORD) {
+            this.deleteWords();
+        } else if (pattern == DeletePattern.DELETE_EVERYTHING) {
+
+        }
         this.sendOutput();
     }
 }
