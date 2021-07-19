@@ -1,8 +1,10 @@
 package me.intellegibile.textutility.operation;
 
+import me.intellegibile.textutility.Pattern.Pattern;
 import me.intellegibile.textutility.file.InputFile;
 import me.intellegibile.textutility.file.OutputFile;
 
+import java.nio.file.Path;
 import java.util.List;
 
 public class DeleteOperation extends Operation{
@@ -24,7 +26,7 @@ public class DeleteOperation extends Operation{
     }
 
     @Override
-    public void operate() {
+    public void operate(Pattern pattern) {
         this.deleteWords();
         this.sendOutput();
     }
