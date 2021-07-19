@@ -1,11 +1,14 @@
 package me.intellegibile.textutility.util;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class StringReader {
     private final String string;
     private int cursor;
     private List<String> words = new ArrayList<String>();
+    private List<String> command = new ArrayList<String>();
+    private ArrayList<ArrayList<String>> commandPattern = new ArrayList<ArrayList<String>>();
 
     public StringReader(String s, int c) {
         this.string = s;
@@ -51,6 +54,11 @@ public class StringReader {
        return this.cursor == this.string.length() - minus;
     }
 
+    public boolean isSeparator(String separator) {
+        char[] r = this.string.toCharArray();
+        return r[this.cursor] == separator.toCharArray()[0];
+    }
+
     public boolean isEnd() {
         return this.isEnd(0);
     }
@@ -75,6 +83,36 @@ public class StringReader {
                 }
             }
         }
+    }
+
+    public ArrayList<ArrayList<String>> readCommandPatterns(String separator) {
+        List<Character> singleCommand = new ArrayList<Character>();
+        while((this.canRead() || this.isEnd(1)) && !this.isWhiteSpace() && !this.isSeparator(separator)) {
+            char r = this.read();
+            singleCommand.add(Character.valueOf(r));
+            this.skip();
+        }
+        if (this.isEnd() || (this.isWhiteSpace() && !this.isSeparator(separator))) {
+            StringBuilder stringBuilder = new StringBuilder();
+            singleCommand.forEach(s -> stringBuilder.append(s));
+            this.command.add(stringBuilder.toString());
+            stringBuilder.delete(0, singleCommand.size());
+            singleCommand.clear();
+            if (!(this.isEnd())) {
+                this.skipWhiteSpace();
+                if (this.canRead()) {
+                    this.readCommandPatterns(separator);
+                }
+            }
+        }
+        if (this.isEnd() || this.isSeparator(separator)) {
+            this.commandPattern.add(new ArrayList<>(this.command));
+            this.command.clear();
+            if (!this.isEnd()) {
+                this.readCommandPatterns(separator);
+            }
+        }
+        return this.commandPattern = this.commandPattern.stream().filter(strings -> strings.size() != 0).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public List<String> getWordsBetweenSpaces() {
