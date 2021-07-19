@@ -1,5 +1,6 @@
 package me.intellegibile.textutility.operation;
 
+import me.intellegibile.textutility.Pattern.Pattern;
 import me.intellegibile.textutility.file.InputFile;
 import me.intellegibile.textutility.file.OutputFile;
 import me.intellegibile.textutility.util.StringReader;
@@ -43,7 +44,7 @@ public abstract class Operation {
         this.outputString = stringBuilder.toString();
     }
 
-    public abstract void operate();
+    public abstract void operate(Pattern pattern);
 
     public void sendOutput() {
         this.output.initializeOutput(this.outputString);
