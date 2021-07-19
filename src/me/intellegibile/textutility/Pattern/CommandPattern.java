@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class CommandPattern {
     private final String[] argoments;
     private String PATTERN_SEPARATOR = "|";
-    private String NONE = "!";
+    private String NONE = "none";
     private StringReader commandParser;
     private ArrayList<ArrayList<String>> commandPattern = new ArrayList<ArrayList<String>>();
 
@@ -39,7 +39,7 @@ public class CommandPattern {
     }
 
     public boolean isNone(String string) {
-        return string == this.NONE;
+        return string.equals(this.NONE);
     }
 
     public void parseDeleteCommand(ArrayList<String> command, boolean inputAndOutput, boolean inputOutput, Path input, Path output) {

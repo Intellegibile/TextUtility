@@ -5,6 +5,7 @@ import me.intellegibile.textutility.Pattern.Pattern;
 import me.intellegibile.textutility.file.InputFile;
 import me.intellegibile.textutility.file.OutputFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteOperation extends Operation{
@@ -25,6 +26,11 @@ public class DeleteOperation extends Operation{
        this.setOutputString(wordsToDelete);
     }
 
+    public void deleteEverything() {
+        List<String> nothing = new ArrayList<>();
+        this.setOutputString(nothing);
+    }
+
     @Override
     public void operate(Pattern pattern) {
         if (pattern == DeletePattern.DELETE_ALL_SPACES) {
@@ -32,7 +38,7 @@ public class DeleteOperation extends Operation{
         } else if (pattern == DeletePattern.DELETE_SPECIFIC_WORD) {
             this.deleteWords();
         } else if (pattern == DeletePattern.DELETE_EVERYTHING) {
-
+            this.deleteEverything();
         }
         this.sendOutput();
     }
