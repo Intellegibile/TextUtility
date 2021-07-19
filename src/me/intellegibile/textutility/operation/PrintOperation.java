@@ -1,5 +1,6 @@
 package me.intellegibile.textutility.operation;
 
+import me.intellegibile.textutility.Pattern.Pattern;
 import me.intellegibile.textutility.file.InputFile;
 import me.intellegibile.textutility.file.OutputFile;
 
@@ -9,7 +10,7 @@ public class PrintOperation extends Operation{
         super(inputFile, outputFile);
     }
 
-    public void operate() {
+    public void operate(Pattern pattern) {
 
     }
 }
