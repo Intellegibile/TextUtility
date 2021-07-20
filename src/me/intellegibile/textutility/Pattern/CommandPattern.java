@@ -7,6 +7,7 @@ import me.intellegibile.textutility.operation.PrintOperation;
 import me.intellegibile.textutility.util.StringReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommandPattern {
     private final String[] argoments;
@@ -43,28 +44,35 @@ public class CommandPattern {
     }
 
     public void parseDeleteCommand(ArrayList<String> command, boolean inputAndOutput, boolean inputOutput, Path input, Path output) {
-        if (!this.isNone(command.get(1)) && !command.get(1).equals("space")) {
+        if (!this.isNone(command.get(1)) && !command.get(1).equals("space") && command.get(1).equals("words")) {
+            List<String> words = new ArrayList<String>();
+            words = command.stream().filter(s -> command.indexOf(s) > 1).toList();
+            StringBuilder builder = new StringBuilder();
+            List<String> finalWords = words;
+            words.stream().filter(s -> !(finalWords.indexOf(s) == finalWords.size() - 1)).forEach(s -> builder.append(s + " "));
+            builder.append(words.get(finalWords.size() - 1));
+            StringReader stringReader = new StringReader(builder.toString());
             if (inputAndOutput) {
-                DeleteOperation deleteOperation = new DeleteOperation(command.get(1), new InputFile(input), new OutputFile(output));
+                DeleteOperation deleteOperation = new DeleteOperation(stringReader.getWordsBetweenSpaces(), new InputFile(input), new OutputFile(output));
                 deleteOperation.operate(DeletePattern.DELETE_SPECIFIC_WORD);
             } else if (inputOutput) {
-                DeleteOperation deleteOperation = new DeleteOperation(command.get(1), new InputFile(input), new OutputFile(input));
+                DeleteOperation deleteOperation = new DeleteOperation(stringReader.getWordsBetweenSpaces(), new InputFile(input), new OutputFile(input));
                 deleteOperation.operate(DeletePattern.DELETE_SPECIFIC_WORD);
             }
         } else if (this.isNone(this.argoments[3])) {
             if (inputAndOutput) {
-                DeleteOperation deleteOperation = new DeleteOperation(command.get(1), new InputFile(input), new OutputFile(output));
+                DeleteOperation deleteOperation = new DeleteOperation(null, new InputFile(input), new OutputFile(output));
                 deleteOperation.operate(DeletePattern.DELETE_EVERYTHING);
             } else if (inputOutput) {
-                DeleteOperation deleteOperation = new DeleteOperation(command.get(1), new InputFile(input), new OutputFile(input));
+                DeleteOperation deleteOperation = new DeleteOperation(null, new InputFile(input), new OutputFile(input));
                 deleteOperation.operate(DeletePattern.DELETE_EVERYTHING);
             }
         } else {
             if (inputAndOutput) {
-                DeleteOperation deleteOperation = new DeleteOperation(command.get(1), new InputFile(input), new OutputFile(output));
+                DeleteOperation deleteOperation = new DeleteOperation(null, new InputFile(input), new OutputFile(output));
                 deleteOperation.operate(DeletePattern.DELETE_ALL_SPACES);
             } else if (inputOutput) {
-                DeleteOperation deleteOperation = new DeleteOperation(command.get(1), new InputFile(input), new OutputFile(input));
+                DeleteOperation deleteOperation = new DeleteOperation(null, new InputFile(input), new OutputFile(input));
                 deleteOperation.operate(DeletePattern.DELETE_ALL_SPACES);
             }
         }

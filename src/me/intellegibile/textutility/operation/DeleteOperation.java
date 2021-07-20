@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteOperation extends Operation{
-    private final String word;
+    private final List<String> words;
 
-    public DeleteOperation(String word, InputFile inputFile, OutputFile outputFile) {
+    public DeleteOperation(List<String> words, InputFile inputFile, OutputFile outputFile) {
        super(inputFile, outputFile);
-       this.word = word;
+       this.words = words;
     }
 
     public void deleteAllSpaces() {
@@ -22,7 +22,7 @@ public class DeleteOperation extends Operation{
 
     public void deleteWords() {
         List<String> wordsToDelete = this.getStringReader().getWordsBetweenSpaces();
-       wordsToDelete = wordsToDelete.stream().filter(s -> !s.equals(this.word)).toList();
+       wordsToDelete = wordsToDelete.stream().filter(s -> !this.words.contains(s)).toList();
        this.setOutputString(wordsToDelete);
     }
 
